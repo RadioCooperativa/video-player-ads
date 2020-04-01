@@ -6,8 +6,6 @@ let wrapper = '';
 
 function initHomeStiky(flag, url, isMobile){
 
-    console.log("initHomeStiky");
-
     urlTag = url;
         if(flag === true){
                 if(isMobile !== 1){
@@ -19,24 +17,19 @@ function initHomeStiky(flag, url, isMobile){
                 }
 
                 ventana.on('scroll', function(){
-                    wrapper           = document.getElementById('wrapper');
-
                     cargarBloqueVideo();
-
                 });
         
-                let process_scroll_focus = false;
+        let process_scroll_focus = false;
         async function cargarBloqueVideo(){
             if(process_scroll_focus === false ){
                 process_scroll_focus = true;
   
             let videoInReadWrapper = document.createElement('div');
                 videoInReadWrapper.id = 'videoInReadWrapper';
-                videoInReadWrapper.className = 'videoInReadWrapper';
-                // document.getElementById('wrapper').appendChild(videoInReadWrapper);
+                videoInReadWrapper.className = 'videoHomeStickyWrapper';
                 document.body.appendChild(videoInReadWrapper);
 
-            
             let videoContent = document.createElement('div');
                 videoContent.id = 'content-reproductor';
                 videoContent.className = 'content-reproductor';

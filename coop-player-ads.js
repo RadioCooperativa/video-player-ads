@@ -2,8 +2,6 @@ let adsManager, adsLoader, adDisplayContainer, videoContent, adsInitialized, aut
 
 function initMainSdk() {
 
-  console.log("initMainSdk")
-
   videoContent        = document.getElementById('content_video');
   videoContent_ima    = document.getElementById('ima-sample-videoplayer');
 
@@ -27,7 +25,6 @@ function checkAutoplaySupport() {
 }
 
 function onAutoplayWithSoundSuccess() {
-    // videoContent.pause();
     autoplayAllowed       = true;
     autoplayRequiresMuted = false;
     autoplayChecksResolved();
@@ -47,15 +44,12 @@ function checkMutedAutoplaySupport() {
 }
 
 function onMutedAutoplaySuccess() {
-    // videoContent.pause();
     autoplayAllowed = true;
     autoplayRequiresMuted = true;
     autoplayChecksResolved();
 }
 
 function onMutedAutoplayFail() {
-    // videoContent.volume = 1;
-    // videoContent.muted = false;
     autoplayAllowed = false;
     autoplayRequiresMuted = false;
     autoplayChecksResolved();
@@ -64,7 +58,6 @@ function onMutedAutoplayFail() {
 function autoplayChecksResolved() {
     var adsRequest = new google.ima.AdsRequest();
     adsRequest.adTagUrl = urlTag;
-    // adsRequest.contentTitle = 'PUBLICIDAD';
     adsRequest.setAdWillAutoPlay(autoplayAllowed);
     adsRequest.setAdWillPlayMuted(autoplayRequiresMuted);
     adsLoader.requestAds(adsRequest);
@@ -100,7 +93,6 @@ function playAds() {
     } catch (adError) {
         videoContent.play();
   }
-
 }
 
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
@@ -127,7 +119,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
     } catch (adError) {
         videoContent.play();
     }
-    
 }
 
 function onAdEvent(adEvent) {
@@ -146,8 +137,6 @@ function onAdEvent(adEvent) {
                 adsManager.getVolume() === 0 ? document.getElementById('muteButton').style.display ='block': document.getElementById('audioButton').style.display ='block';
                 document.getElementById('videoInReadWrapper').style.display           ='table';
                 document.getElementById('ima-sample-videoplayer').style.display       ='table';
-                // document.getElementById('ima-Home-Sticky').style.display              ='table';
-
                 document.getElementById('contControls').style.display                 ='block';
                 document.getElementById('contentClose').style.display                 ='block';
         break;

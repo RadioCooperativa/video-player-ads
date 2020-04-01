@@ -48,10 +48,6 @@ cleanArrayStem = arrayStem.filter(function(el){
     return el != null;
 });
 
-console.log("cleanArraySec: ",cleanArraySec);
-console.log("cleanArrayTem: ",cleanArrayTem);
-console.log("cleanArrayStem: ",cleanArrayStem);
-
 cleanArraySec.length     === 0 ? (callViews(vastTagBase, isMobile)):
     (resultUrlVast       =  await stringUrlVast(cleanArraySec, vastTagBase, coop_seccion_1),
     cleanArrayTem.length !== 0 ? flagTem = true : callViews(resultUrlVast, isMobile)
@@ -106,21 +102,14 @@ async function stringUrlVast(array, vastTag, clave){
 
 function callViews (url,isMobile){
 
-    console.log("urlVast: ",url);
+    console.info("urlVast: ",url);
     switch (true){
         case(url.indexOf('inread') !== -1):
-        	console.log("llama vista inread");
             initInread(true,url,isMobile);
         break;
         case(url.indexOf('home_stiky') !== -1):
-        	 console.log("llama vista home_stiky");
              initHomeStiky(true,url,isMobile);
         break;
-        case(url.indexOf('headerVideo') !== -1):
-        	console.log("llama vista headerVideo");
-            // initHeaderVideo(true,url,isMobile);
-        break;
         default:
-            console.log("vista normal");
    }
 }
