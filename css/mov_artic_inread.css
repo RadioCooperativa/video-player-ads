@@ -1,0 +1,14 @@
+/*PLAYER INHOUSE AD 26032020*/
+#ima-sample-videoplayer {border-radius: 5px;width: 300px;height: 250px;margin-left: auto;margin-right: auto;display:none;}
+#content_video {overflow: hidden;}
+.contControlsVideo{width: 100%;height: 28px;bottom: 0px;position: absolute;display: none;}
+.contControlsVideo .buttonAudio{width: 28px;height: 28px;bottom: 0;background-image: url('/noticias/stat/includes/publicidad/img/iconos/Play_sonido-01.svg');float:right;display: none;background-repeat: no-repeat;margin: -5px 5px 0 0;cursor: pointer;}
+.contControlsVideo .buttonMute{width: 28px;height: 28px;bottom: 0;background-image: url('/noticias/stat/includes/publicidad/img/iconos/mute_mute__-01.svg');float:right;display: none;background-repeat: no-repeat;margin: -5px 5px 0 0;cursor: pointer;}
+.videoInReadWrapper{display: none;margin: 40px auto;}
+.closeWrapper{width: 30px;height: 28px;position: absolute;top: -60px;right: 0px;}
+.closeWrapper .contentClose{width: 100%;height: 28px;float: left;}
+.closeWrapper .contentCloseImg{width: 28px;height: 28px;background-image: url('/noticias/stat/includes/publicidad/img/iconos/Cerrar_cerrar___-01.svg');float: left;background-repeat: no-repeat;}
+.content_video{position: relative;background-color: #000;border-radius: 5px;width: 300px;height: 250px;margin-left: auto;margin-right: auto;margin-top: 20px;}
+.contMiniPlayer{position: fixed !important;bottom: 20px;right: 20px;width: 275px !important ;height: 155px !important ;animation: fade-in-up .25s ease forwards !important;padding-bottom: 10px;z-index: 2;}
+.content-reproductor{position: relative;}
+/*FIN PLAYER INHOUSE AD 26032020*/
