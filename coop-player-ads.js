@@ -159,8 +159,9 @@ function autoplayChecksResolved() {
       break;
       default:
  }
-    
+    console.log("autoplayAllowed: ",autoplayAllowed);
     adsRequest.setAdWillAutoPlay(autoplayAllowed);
+    adsRequest.setContinuousPlayback(true);
     adsRequest.setAdWillPlayMuted(autoplayRequiresMuted);
     adsLoader.requestAds(adsRequest);
 }
