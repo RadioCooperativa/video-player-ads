@@ -1,51 +1,52 @@
-let ventana = $(window);
-let urlTag ='';
-let contenedorVideoIos = '';
-let style = '';
-let wrapper = '';
+// let ventana = $(window);
+// let urlTag ='';
+// let contenedorVideoIos = '';
+// let style = '';
+// let wrapper = '';
 
-function initHomeStiky(flag, url, isMobile){
+function initSpecialStreaming(flag, url, isMobile, globalVarFormat){
+    console.log("initSpecialStreaming url: "+url);
 
-    urlTag = url;
+    urlTagEspecialStreaming = url;
         if(flag === true){
                 if(isMobile !== 1){
-                    dimensiones_1 = 275;
-                    dimensiones_2 = 155;
+                    dimensiones_1 = 320;
+                    dimensiones_2 = 180;
                 }else{
-                    dimensiones_1 = 275;
-                    dimensiones_2 = 155;
+                    dimensiones_1 = 320;
+                    dimensiones_2 = 180;
                 }
 
-                ventana.on('scroll', function(){
-                    cargarBloqueVideo();
-                });
-        
-        let process_scroll_focus = false;
-        async function cargarBloqueVideo(){
-            if(process_scroll_focus === false ){
-                process_scroll_focus = true;
-  
+                cargarBloqueVideo(globalVarFormat);
+
+        async function cargarBloqueVideo(globalVarFormat){
+
+            let localStringFormat = globalVarFormat;
             let videoInReadWrapper = document.createElement('div');
-                videoInReadWrapper.id = 'videoInReadWrapper';
-                videoInReadWrapper.className = 'videoHomeStickyWrapper';
-                document.body.appendChild(videoInReadWrapper);
+                videoInReadWrapper.id = 'video-'+localStringFormat+'';
+                videoInReadWrapper.className = 'video-'+localStringFormat+'';
+                document.getElementById('ima-player-rudo').appendChild(videoInReadWrapper);
+                // document.body.appendChild(videoInReadWrapper);
 
             let videoContent = document.createElement('div');
-                videoContent.id = 'content-reproductor';
-                videoContent.className = 'content-reproductor';
-                document.getElementById('videoInReadWrapper').appendChild(videoContent);
+                videoContent.id = 'content-reproductor-'+localStringFormat+'';
+                videoContent.className = 'content-reproductor-'+localStringFormat+'';
+                document.getElementById('video-'+localStringFormat+'').appendChild(videoContent);
 
             let videoWrapper = document.createElement('div');
-                videoWrapper.id = 'ima-sample-videoplayer';
-                videoWrapper.className = 'ima-Home-Sticky';
-                document.getElementById('content-reproductor').appendChild(videoWrapper);
+                videoWrapper.id = 'ima-'+localStringFormat+'';
+                videoWrapper.className = 'ima-'+localStringFormat+'';
+                document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
     
-            const dibujaContVideo_ = await dibujaContVideo();
+                console.log("llamando a dibujaVideo especial streaming")
+            const dibujaContVideo_ = await dibujaContVideo(localStringFormat);
                 if(dibujaContVideo_){
-                    initMainSdk();
+                    initMainSdk(localStringFormat);
             }else{console.error("Ha ocurrido un error al crear el contenedor de Video: ",dibujaContVideo_);}
-        }
-      }
+        // }
+        
     }
+
+  }
 }
 

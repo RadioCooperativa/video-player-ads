@@ -1,10 +1,26 @@
+let globalVarFormat = '';
 let dimensiones_1;
 let dimensiones_2;
 let isMobile;
 let contControls = '';
-let buttonAudio  = '';
-let buttonMute   = '';
-let buttonClose  = '';
+
+let buttonAudio = '';
+let buttonMute = '';
+let buttonClose = '';
+
+
+let buttonAudioInread  = '';
+let buttonMuteInread   = '';
+let buttonCloseInread  = '';
+
+let buttonAudioHomeStiky  = '';
+let buttonMuteHomeStiky   = '';
+let buttonCloseHomeStiky  = '';
+
+let buttonAudioEspecialStreaming  = '';
+let buttonMuteEspecialStreaming   = '';
+let buttonCloseEspecialStreaming  = '';
+
 const coop_seccion_1 = 'coop_seccion_1';
 const coop_tema_1 = 'coop_tema_1';
 const coop_subtema_1 = 'coop_subtema_1';
@@ -26,6 +42,16 @@ let cleanArrayStem  = [];
 
 let largoArray = 0;
 let vastTagBase = '';
+
+
+let ventana = $(window);
+let urlTagInRead ='';
+let urlTagHomeSticky ='';
+let urlTagEspecialStreaming ='';
+
+let contenedorVideoIos = '';
+let style = '';
+let wrapper = '';
 
 async function go(urlTagBase, arraySeccion, arrayTem, arrayStem){
 
@@ -102,13 +128,19 @@ async function stringUrlVast(array, vastTag, clave){
 
 function callViews (url,isMobile){
 
-    console.info("urlVast: ",url);
+    console.info("callViews urlVast: ",url);
     switch (true){
         case(url.indexOf('inread') !== -1):
-            initInread(true,url,isMobile);
+            globalVarFormat = 'inread';
+            initInread(true,url,isMobile,globalVarFormat);
         break;
         case(url.indexOf('home_stiky') !== -1):
-             initHomeStiky(true,url,isMobile);
+            globalVarFormat = 'home-stiky';
+            initHomeStiky(true,url,isMobile,globalVarFormat);
+        break;
+        case(url.indexOf('especial_streaming') !== -1):
+            globalVarFormat = 'especial-streaming';
+            initSpecialStreaming(true,url,isMobile,globalVarFormat);
         break;
         default:
    }
