@@ -34,7 +34,7 @@ function dibujaButtonControlsAndCloseInRead(formatType){
 
   console.log("initMainSdk dibujaButtonControlsAndCloseInRead typeFormat: ",typeFormat);
   
-  videoContent        = document.getElementById('content_video');
+  videoContent              = document.getElementById('content_video-'+typeFormat);
 
   buttonAudioInread         = document.getElementById('audioButton-'+typeFormat+'');
   buttonMuteInread          = document.getElementById('muteButton-'+typeFormat+'');
@@ -53,7 +53,7 @@ function dibujaButtonControlsAndCloseHomeStiky(formatType){
   console.log("initMainSdk dibujaButtonControlsAndCloseHomeStiky typeFormat: ",typeFormat);
 
 
-  videoContent        = document.getElementById('content_video');
+  videoContent              = document.getElementById('content_video-'+typeFormat);
 
   buttonAudioHomeStiky         = document.getElementById('audioButton-'+typeFormat+'');
   buttonMuteHomeStiky          = document.getElementById('muteButton-'+typeFormat+'');
@@ -72,7 +72,7 @@ function dibujaButtonControlsAndCloseEspecialStreaming(formatType){
   console.log("initMainSdk dibujaButtonControlsAndCloseEspecialStreaming typeFormat: ",typeFormat);
 
 
-  videoContent        = document.getElementById('content_video');
+  videoContent              = document.getElementById('content_video-'+typeFormat);
 
   buttonAudioEspecialStreaming         = document.getElementById('audioButton-'+typeFormat+'');
   buttonMuteEspecialStreaming          = document.getElementById('muteButton-'+typeFormat+'');
@@ -159,9 +159,8 @@ function autoplayChecksResolved() {
       break;
       default:
  }
-    console.log("autoplayAllowed: ",autoplayAllowed);
+    
     adsRequest.setAdWillAutoPlay(autoplayAllowed);
-    adsRequest.setContinuousPlayback(true);
     adsRequest.setAdWillPlayMuted(autoplayRequiresMuted);
     adsLoader.requestAds(adsRequest);
 }
@@ -203,7 +202,11 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
     let adsRenderingSettings = new google.ima.AdsRenderingSettings();
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
+    // detectFormat(localStringFormat)
+    console.log("videocontent: ",videoContent);
     adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+    console.log("adsManager: ",adsManager);
+
     adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,onContentPauseRequested);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,onContentResumeRequested);
@@ -349,16 +352,20 @@ function onCloseRequeset(localStringFormat){
     case(localStringFormat.indexOf('inread') !== -1):
     adsManager.destroy();
     document.getElementById('video-'+localStringFormat+'').style.display='none';
+    document.getElementById('ima-player-rudo').style.display='none';
         
     break;
     case(localStringFormat.indexOf('home-stiky') !== -1):
     adsManager.destroy();
     document.getElementById('video-'+localStringFormat+'').style.display='none';
+    document.getElementById('ima-player-rudo').style.display='none';
         
     break;
     case(localStringFormat.indexOf('especial-streaming') !== -1):
     adsManager.destroy();
     document.getElementById('video-'+localStringFormat+'').style.display='none';
+    document.getElementById('ima-player-rudo').style.display='none';
+
         
     break;
     default:

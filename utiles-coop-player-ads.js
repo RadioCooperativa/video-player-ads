@@ -14,10 +14,10 @@ function dibujaContVideo(globalVarFormat){
             let obj = document.getElementById('ima-'+localStringFormat+'');
   
             if(detectIos() === 1){
-              htmlObject = '<video id="content_video" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+              htmlObject = '<video id="content_video-'+localStringFormat+'" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
               obj.innerHTML = htmlObject;
             }else{
-              htmlObject = '<video id="content_video" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+              htmlObject = '<video id="content_video-'+localStringFormat+'" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
               obj.innerHTML = htmlObject;              
             }
             console.log("dibujaContVideo localStringFormat: ",localStringFormat);
