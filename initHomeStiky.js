@@ -1,7 +1,6 @@
 
 
 function initHomeStiky(flag, url, isMobile, globalVarFormat){
-    console.log("initHomeSticky url: "+url);
 
     urlTagHomeSticky = url;
         if(flag === true){
@@ -21,24 +20,25 @@ function initHomeStiky(flag, url, isMobile, globalVarFormat){
         
         let process_scroll_focus = false;
         async function cargarBloqueVideo(globalVarFormat){
-            console.log("initHomeStiky cargarBloqueVideo");
             if(process_scroll_focus === false ){
+            
                 let localStringFormat = globalVarFormat;
                 process_scroll_focus = true;
-            let videoInReadWrapper = document.createElement('div');
-                videoInReadWrapper.id = 'video-'+localStringFormat+'';
-                videoInReadWrapper.className = 'video-'+localStringFormat+'';
-                document.body.appendChild(videoInReadWrapper);
+                
+                let videoInReadWrapper = document.createElement('div');
+                    videoInReadWrapper.id = 'video-'+localStringFormat+'';
+                    videoInReadWrapper.className = 'video-'+localStringFormat+'';
+                    document.body.appendChild(videoInReadWrapper);
 
-            let videoContent = document.createElement('div');
-                videoContent.id = 'content-reproductor-'+localStringFormat+'';
-                videoContent.className = 'content-reproductor-'+localStringFormat+'';
-                document.getElementById('video-'+localStringFormat+'').appendChild(videoContent);
+                let videoContent = document.createElement('div');
+                    videoContent.id = 'content-reproductor-'+localStringFormat+'';
+                    videoContent.className = 'content-reproductor-'+localStringFormat+'';
+                    document.getElementById('video-'+localStringFormat+'').appendChild(videoContent);
 
-            let videoWrapper = document.createElement('div');
-                videoWrapper.id = 'ima-'+localStringFormat+'';
-                videoWrapper.className = 'ima-'+localStringFormat+'';
-                document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
+                let videoWrapper = document.createElement('div');
+                    videoWrapper.id = 'ima-'+localStringFormat+'';
+                    videoWrapper.className = 'ima-'+localStringFormat+'';
+                    document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
     
             const dibujaContVideo_ = await dibujaContVideo(globalVarFormat);
                 if(dibujaContVideo_){

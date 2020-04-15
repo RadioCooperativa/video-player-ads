@@ -96,8 +96,6 @@ function initInread(flag, url, isMobile, globalVarFormat){
               videoWrapper.className = 'ima-'+localStringFormat+'';
 
               document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
-
-              // document.getElementById('content-reproductor').appendChild(videoWrapper);
   
           const dibujaContVideo_ = await dibujaContVideo(globalVarFormat);
             if(dibujaContVideo_){
