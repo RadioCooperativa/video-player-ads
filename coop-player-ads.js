@@ -11,21 +11,29 @@ async function initMainSdk(globalVarFormat) {
   if(!resultFormat){
     console.error("initMainSdk error detectFormat");
   }else{
-        switch (resultFormat){
-          case (1):
-            console.log("caso1: ",resultFormat);
-            dibujaButtonControlsAndCloseInRead('inread');
-            break;
-          case(2):
-            console.log("caso2: ",resultFormat);
-            dibujaButtonControlsAndCloseHomeStiky('home-stiky');
-            break;
-          case(3):
-            console.log("caso3: ",resultFormat);
-            dibujaButtonControlsAndCloseEspecialStreaming('especial-streaming');
-            break;
-        }
+
+        dibujaButtonControlsAndClose(resultFormat);
     }
+}
+
+function dibujaButtonControlsAndClose(formatType){
+
+  let typeFormat = formatType;
+
+  console.log("initMainSdk dibujaButtonControlsAndCloseInRead typeFormat: ",typeFormat);
+  
+  videoContent        = document.getElementById('content_video-'+typeFormat);
+
+  buttonAudio         = document.getElementById('audioButton-'+typeFormat+'');
+  buttonMute          = document.getElementById('muteButton-'+typeFormat+'');
+  buttonClose         = document.getElementById('contentCloseImg-'+typeFormat+'');
+
+  buttonAudio.addEventListener('click',() => {onAudioRequest(typeFormat);});
+  buttonMute.addEventListener('click', () => {onMuteRequest(typeFormat);});
+  buttonClose.addEventListener('click',() => {onCloseRequeset(typeFormat);});
+
+  setUpIMA();
+  checkAutoplaySupport();
 }
 
 function dibujaButtonControlsAndCloseInRead(formatType){
@@ -92,17 +100,21 @@ function detectFormat(formatString){
                   1.- inread;
                   2.- home-stiky;
                   3.- especial-streaming;*/
+  let varResult;
 
   switch (true){
       case(formatString.indexOf('inread') !== -1):
         console.log("initMainSdk localStringFormat: ",localStringFormat);
-        return 1;
+        varResult = 'inread';
+        return varResult;
       case(formatString.indexOf('home-stiky') !== -1):
         console.log("initMainSdk localStringFormat: ",localStringFormat);
-        return 2;
+        varResult = 'home-stiky';
+        return varResult;
       case(formatString.indexOf('especial-streaming') !== -1):
         console.log("initMainSdk localStringFormat: ",localStringFormat);
-        return 3;
+        varResult = 'especial-streaming';
+        return varResult;
   }
 }
 
@@ -202,7 +214,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
     let adsRenderingSettings = new google.ima.AdsRenderingSettings();
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
-    // detectFormat(localStringFormat)
     console.log("videocontent: ",videoContent);
     adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
     console.log("adsManager: ",adsManager);
@@ -231,6 +242,8 @@ function onAdEvent(adEvent) {
 
   var ad = adEvent.getAd();
 
+  let varCompruebaElement = document.getElementById('ima-player-rudo');
+
     switch (adEvent.type) {
         case google.ima.AdEvent.Type.LOADED:
             console.info("Loaded");
@@ -242,16 +255,15 @@ function onAdEvent(adEvent) {
           console.info("Started");
 
                 adsManager.getVolume() === 0 ? document.getElementById('muteButton-'+localStringFormat+'').style.display ='block': document.getElementById('audioButton-'+localStringFormat+'').style.display ='block';
-                document.getElementById('video-'+localStringFormat+'').style.display           ='table';
-                document.getElementById('ima-'+localStringFormat+'').style.display       ='table';
-                document.getElementById('contControlsVideo-'+localStringFormat+'').style.display                 ='block';
-                document.getElementById('contentCloseImg-'+localStringFormat+'').style.display                 ='block';    
+                document.getElementById('video-'+localStringFormat+'').style.display                            ='table';
+                document.getElementById('ima-'+localStringFormat+'').style.display                              ='table';
+                document.getElementById('contControlsVideo-'+localStringFormat+'').style.display                ='block';
+                document.getElementById('contentCloseImg-'+localStringFormat+'').style.display                  ='block';    
         break;
         case google.ima.AdEvent.Type.COMPLETE:
                 console.info("Complete");
                 document.getElementById('video-'+localStringFormat+'').style.display           ='none';
-                document.getElementById('ima-player-rudo').style.display               ='none';
-
+                varCompruebaElement ? document.getElementById('ima-player-rudo').style.display ='none':null;
         break;
   }
 }
@@ -306,72 +318,58 @@ function onMuteRequest(localStringFormat) {
 
   switch (true){
     case(localStringFormat.indexOf('inread') !== -1):
-    let stringFormatInRead = localStringFormat;
-    console.log("onMuteRequest stringFormatInRead: ",stringFormatInRead);
-    if(adsManager.getVolume() === 0){
-      adsManager.setVolume(1);
-      document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='block';
-      document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='none';
-  }
-        
+      let stringFormatInRead = localStringFormat;
+      console.log("onMuteRequest stringFormatInRead: ",stringFormatInRead);
+      if(adsManager.getVolume() === 0){
+        adsManager.setVolume(1);
+        document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='block';
+        document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='none';
+      }     
     break;
+   
     case(localStringFormat.indexOf('home-stiky') !== -1):
-    let stringFormatHomeStiky = localStringFormat;
-    console.log("onMuteRequest stringFormatHomeStiky: ",stringFormatHomeStiky);
-    if(adsManager.getVolume() === 0){
-      adsManager.setVolume(1);
-      document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='block';
-      document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='none';
-  }
-        
+      let stringFormatHomeStiky = localStringFormat;
+      console.log("onMuteRequest stringFormatHomeStiky: ",stringFormatHomeStiky);
+        if(adsManager.getVolume() === 0){
+        adsManager.setVolume(1);
+        document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='block';
+        document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='none';
+        }        
     break;
+   
     case(localStringFormat.indexOf('especial-streaming') !== -1):
-    let stringFormatEspecialStreaming = localStringFormat;
-    console.log("onMuteRequest stringFormatEspecialStreaming: ",stringFormatEspecialStreaming);
-    if(adsManager.getVolume() === 0){
-      adsManager.setVolume(1);
-      document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='block';
-      document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='none';
-  }
-        
+      let stringFormatEspecialStreaming = localStringFormat;
+      console.log("onMuteRequest stringFormatEspecialStreaming: ",stringFormatEspecialStreaming);
+      if(adsManager.getVolume() === 0){
+        adsManager.setVolume(1);
+        document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='block';
+        document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='none';
+      }       
     break;
     default:
 }
 
-      
-      //   if(adsManager.getVolume() === 0){
-      //     adsManager.setVolume(1);
-      //     document.getElementById('audioButton-'+localStringFormat+'').style.display ='block';
-      //     document.getElementById('muteButton-'+localStringFormat+'').style.display ='none';
-      // }
 } 
 
 function onCloseRequeset(localStringFormat){
 
   switch (true){
     case(localStringFormat.indexOf('inread') !== -1):
-    adsManager.destroy();
-    document.getElementById('video-'+localStringFormat+'').style.display='none';
-    document.getElementById('ima-player-rudo').style.display='none';
-        
+      adsManager.destroy();
+      document.getElementById('video-'+localStringFormat+'').style.display='none';   
     break;
     case(localStringFormat.indexOf('home-stiky') !== -1):
-    adsManager.destroy();
-    document.getElementById('video-'+localStringFormat+'').style.display='none';
-    document.getElementById('ima-player-rudo').style.display='none';
-        
+      adsManager.destroy();
+      document.getElementById('video-'+localStringFormat+'').style.display='none';
     break;
     case(localStringFormat.indexOf('especial-streaming') !== -1):
-    adsManager.destroy();
-    document.getElementById('video-'+localStringFormat+'').style.display='none';
-    document.getElementById('ima-player-rudo').style.display='none';
-
-        
+      adsManager.destroy();
+      document.getElementById('video-'+localStringFormat+'').style.display='none';
+      document.getElementById('ima-player-rudo').style.display='none';  
     break;
     default:
 }
-    // adsManager.destroy();
-    // document.getElementById('video-'+localStringFormat+'').style.display='none';
+
 }
 
 function onContentPauseRequested() {
