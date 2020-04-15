@@ -36,64 +36,6 @@ function dibujaButtonControlsAndClose(formatType){
   checkAutoplaySupport();
 }
 
-function dibujaButtonControlsAndCloseInRead(formatType){
-
-  let typeFormat = formatType;
-
-  console.log("initMainSdk dibujaButtonControlsAndCloseInRead typeFormat: ",typeFormat);
-  
-  videoContent              = document.getElementById('content_video-'+typeFormat);
-
-  buttonAudioInread         = document.getElementById('audioButton-'+typeFormat+'');
-  buttonMuteInread          = document.getElementById('muteButton-'+typeFormat+'');
-  buttonCloseInread         = document.getElementById('contentCloseImg-'+typeFormat+'');
-
-  buttonAudioInread.addEventListener('click',() => {onAudioRequest(typeFormat);});
-  buttonMuteInread.addEventListener('click', () => {onMuteRequest(typeFormat);});
-  buttonCloseInread.addEventListener('click',() => {onCloseRequeset(typeFormat);});
-
-  setUpIMA();
-  checkAutoplaySupport();
-}
-
-function dibujaButtonControlsAndCloseHomeStiky(formatType){
-  let typeFormat = formatType;
-  console.log("initMainSdk dibujaButtonControlsAndCloseHomeStiky typeFormat: ",typeFormat);
-
-
-  videoContent              = document.getElementById('content_video-'+typeFormat);
-
-  buttonAudioHomeStiky         = document.getElementById('audioButton-'+typeFormat+'');
-  buttonMuteHomeStiky          = document.getElementById('muteButton-'+typeFormat+'');
-  buttonCloseHomeStiky         = document.getElementById('contentCloseImg-'+typeFormat+'');
-
-  buttonAudioHomeStiky.addEventListener('click',() => {onAudioRequest(typeFormat);});
-  buttonMuteHomeStiky.addEventListener('click', () => {onMuteRequest(typeFormat);});
-  buttonCloseHomeStiky.addEventListener('click',() => {onCloseRequeset(typeFormat);});
-
-  setUpIMA();
-  checkAutoplaySupport();
-}
-
-function dibujaButtonControlsAndCloseEspecialStreaming(formatType){
-  let typeFormat = formatType;
-  console.log("initMainSdk dibujaButtonControlsAndCloseEspecialStreaming typeFormat: ",typeFormat);
-
-
-  videoContent              = document.getElementById('content_video-'+typeFormat);
-
-  buttonAudioEspecialStreaming         = document.getElementById('audioButton-'+typeFormat+'');
-  buttonMuteEspecialStreaming          = document.getElementById('muteButton-'+typeFormat+'');
-  buttonCloseEspecialStreaming         = document.getElementById('contentCloseImg-'+typeFormat+'');
-
-  buttonAudioEspecialStreaming.addEventListener('click',() => {onAudioRequest(typeFormat);});
-  buttonMuteEspecialStreaming.addEventListener('click', () => {onMuteRequest(typeFormat);});
-  buttonCloseEspecialStreaming.addEventListener('click',() => {onCloseRequeset(typeFormat);});
-
-  setUpIMA();
-  checkAutoplaySupport();
-}
-
 function detectFormat(formatString){
 
   /* detectFormat:
