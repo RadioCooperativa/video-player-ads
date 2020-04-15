@@ -1,4 +1,3 @@
-let ventana = $(window);
 let alturaTercerParrafo;
 let contenedor = '';
 let parrafos = '';
@@ -8,14 +7,11 @@ let tercerParrafo = '';
 let altura_1 = 0;
 let altura_2 = 0;
 let altura_3 = 0;
-let urlTag ='';
-let contenedorVideoIos = '';
-let style = '';
 
 
-function initInread(flag, url, isMobile){
+function initInread(flag, url, isMobile, globalVarFormat){
  
-  urlTag = url;
+  urlTagInRead = url;
   if(flag === true){
 
     if(isMobile !== 1){
