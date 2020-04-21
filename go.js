@@ -1,31 +1,53 @@
+let globalVarFormat                 = '';
 let dimensiones_1;
 let dimensiones_2;
 let isMobile;
-let contControls = '';
-let buttonAudio  = '';
-let buttonMute   = '';
-let buttonClose  = '';
-const coop_seccion_1 = 'coop_seccion_1';
-const coop_tema_1 = 'coop_tema_1';
-const coop_subtema_1 = 'coop_subtema_1';
+let contControls                    = '';
+let buttonAudio                     = '';
+let buttonMute                      = '';
+let buttonClose                     = '';
+let buttonAudioInread               = '';
+let buttonMuteInread                = '';
+let buttonCloseInread               = '';
+let buttonAudioHomeStiky            = '';
+let buttonMuteHomeStiky             = '';
+let buttonCloseHomeStiky            = '';
+let buttonAudioEspecialStreaming    = '';
+let buttonMuteEspecialStreaming     = '';
+let buttonCloseEspecialStreaming    = '';
 
-let adicional ='';
-const y = '%26';
-const coma = '%2C';
-const igual = '%3D';
-const customParams = '&cust_params=';
-let vastTagBase1 = '';
-let vastTagBase2 = '';
-let resultUrlVast = '';
-// let tipo = 'inread';
-let cleanArray  = [];
-let cleanArraySec  = [];
-let cleanArrayTem  = [];
-let cleanArrayStem  = [];
+const coop_seccion_1                = 'coop_seccion_1';
+const coop_tema_1                   = 'coop_tema_1';
+const coop_subtema_1                = 'coop_subtema_1';
+
+let adicional                       ='';
+const y                             = '%26';
+const coma                          = '%2C';
+const igual                         = '%3D';
+const customParams                  = '&cust_params=';
+let vastTagBase1                    = '';
+let vastTagBase2                    = '';
+let resultUrlVast                   = '';
+let cleanArray                      = [];
+let cleanArraySec                   = [];
+let cleanArrayTem                   = [];
+let cleanArrayStem                  = [];
 
 
-let largoArray = 0;
-let vastTagBase = '';
+let largoArray                      = 0;
+let vastTagBase                     = '';
+
+
+let ventana                         = $(window);
+let urlTagInRead                    ='';
+let urlTagHomeSticky                ='';
+let urlTagEspecialStreaming         ='';
+
+let contenedorVideoIos              = '';
+let style                           = '';
+let wrapper                         = '';
+
+
 
 async function go(urlTagBase, arraySeccion, arrayTem, arrayStem){
 
