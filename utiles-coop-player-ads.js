@@ -6,50 +6,48 @@ let contentClose        = '';
 let contentCloseImg     = '';
 
 
-function dibujaContVideo(globalVarFormat){
+function dibujaContVideo(){
     
     try {
-      let localStringFormat = globalVarFormat;
-
-            let obj = document.getElementById('ima-'+localStringFormat+'');
+            let obj = document.getElementById("ima-sample-videoplayer");
   
             if(detectIos() === 1){
-              htmlObject = '<video id="content_video-'+localStringFormat+'" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+              htmlObject = '<video id="content_video" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
               obj.innerHTML = htmlObject;
             }else{
-              htmlObject = '<video id="content_video-'+localStringFormat+'" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+              htmlObject = '<video id="content_video" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
               obj.innerHTML = htmlObject;              
             }
-            console.log("dibujaContVideo localStringFormat: ",localStringFormat);
+
             closeWrapper = document.createElement('div');
-            closeWrapper.id ='closeWrapper-'+localStringFormat+'';
-            closeWrapper.className = 'closeWrapper-'+localStringFormat+'';
-            document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(closeWrapper);
+            closeWrapper.id ="closeWrapper";
+            closeWrapper.className = "closeWrapper";
+            document.getElementById('content-reproductor').appendChild(closeWrapper);
 
             contentClose = document.createElement('div');
-            contentClose.id = 'contentClose-'+localStringFormat+'';
-            contentClose.className = 'contentClose-'+localStringFormat+'';
-            document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentClose);
+            contentClose.id = 'contentClose';
+            contentClose.className = 'contentClose';
+            document.getElementById('closeWrapper').appendChild(contentClose);
 
             contentCloseImg = document.createElement('div');
-            contentCloseImg.id = 'contentCloseImg-'+localStringFormat+'';
-            contentCloseImg.className = 'contentCloseImg-'+localStringFormat+'';
-            document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentCloseImg);
+            contentCloseImg.id = 'contentCloseImg';
+            contentCloseImg.className = 'contentCloseImg';
+            document.getElementById('closeWrapper').appendChild(contentCloseImg);
             
             contControls        = document.createElement('div');
-            contControls.id     = 'contControlsVideo-'+localStringFormat+'';
-            contControls.setAttribute('class', 'contControlsVideo-'+localStringFormat+'');
-            document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(contControls);
+            contControls.id     = "contControls";
+            contControls.setAttribute('class', 'contControlsVideo');
+            document.getElementById('content-reproductor').appendChild(contControls);
 
             buttonAudio         = document.createElement('div');
-            buttonAudio.id      = 'audioButton-'+localStringFormat+'';
-            buttonAudio.setAttribute('class', 'buttonAudio-'+localStringFormat+'');
-            document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonAudio);
+            buttonAudio.id      = "audioButton";
+            buttonAudio.setAttribute('class', 'buttonAudio');
+            document.getElementById('contControls').appendChild(buttonAudio);
 
             buttonMute          = document.createElement('div');
-            buttonMute.id       = 'muteButton-'+localStringFormat+''
-            buttonMute.setAttribute('class', 'buttonMute-'+localStringFormat+'');
-            document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonMute);
+            buttonMute.id       = "muteButton"
+            buttonMute.setAttribute('class', 'buttonMute');
+            document.getElementById('contControls').appendChild(buttonMute);
 
             return true;
 

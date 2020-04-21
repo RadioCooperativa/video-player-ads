@@ -47,6 +47,8 @@ let contenedorVideoIos              = '';
 let style                           = '';
 let wrapper                         = '';
 
+
+
 async function go(urlTagBase, arraySeccion, arrayTem, arrayStem){
 
 vastTagBase = urlTagBase;
@@ -122,19 +124,13 @@ async function stringUrlVast(array, vastTag, clave){
 
 function callViews (url,isMobile){
 
-    console.info("callViews urlVast: ",url);
+    console.info("urlVast: ",url);
     switch (true){
         case(url.indexOf('inread') !== -1):
-            globalVarFormat = 'inread';
-            initInread(true,url,isMobile,globalVarFormat);
+            initInread(true,url,isMobile);
         break;
         case(url.indexOf('home_stiky') !== -1):
-            globalVarFormat = 'home-stiky';
-            initHomeStiky(true,url,isMobile,globalVarFormat);
-        break;
-        case(url.indexOf('especial_streaming') !== -1):
-            globalVarFormat = 'especial-streaming';
-            initSpecialStreaming(true,url,isMobile,globalVarFormat);
+             initHomeStiky(true,url,isMobile);
         break;
         default:
    }

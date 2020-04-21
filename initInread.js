@@ -1,3 +1,4 @@
+let ventana = $(window);
 let alturaTercerParrafo;
 let contenedor = '';
 let parrafos = '';
@@ -7,11 +8,14 @@ let tercerParrafo = '';
 let altura_1 = 0;
 let altura_2 = 0;
 let altura_3 = 0;
+let urlTag ='';
+let contenedorVideoIos = '';
+let style = '';
 
 
-function initInread(flag, url, isMobile, globalVarFormat){
+function initInread(flag, url, isMobile){
  
-  urlTagInRead = url;
+  urlTag = url;
   if(flag === true){
 
     if(isMobile !== 1){
@@ -45,9 +49,9 @@ function initInread(flag, url, isMobile, globalVarFormat){
 
           if(style !== "max-height: 300px;"){
           
-            cargarBloqueVideo(globalVarFormat);
+            cargarBloqueVideo();
         
-              let contenedorVideo     = $('#content-reproductor-inread');
+              let contenedorVideo     = $('#content-reproductor');
               let altoContenedorVideo = (contenedorVideo.outerHeight());
               let sumaAlturas         = alturaTercerParrafo + altoContenedorVideo;
               contenedorVideoIos      = document.getElementById('content_video');
@@ -75,33 +79,29 @@ function initInread(flag, url, isMobile, globalVarFormat){
     });
 
     let process_scroll_focus = false;
-    async function cargarBloqueVideo(globalVarFormat){
+    async function cargarBloqueVideo(){
       if($('.cuerpo-ad').isOnScreen() === true && process_scroll_focus === false ){
           process_scroll_focus = true;
         if (cantidadParrafos >= 3){
-          let localStringFormat = globalVarFormat;
           
           let videoInReadWrapper = document.createElement('div');
-              videoInReadWrapper.id = 'video-'+localStringFormat+'';
-              videoInReadWrapper.className = 'video-'+localStringFormat+'';
+              videoInReadWrapper.id = 'videoInReadWrapper';
+              videoInReadWrapper.className = 'videoInReadWrapper';
               document.getElementById('cuerpo-ad').insertBefore(videoInReadWrapper,tercerParrafo);
           
           let videoContent = document.createElement('div');
-              videoContent.id = 'content-reproductor-'+localStringFormat+'';
-              videoContent.className = 'content-reproductor-'+localStringFormat+'';
-              document.getElementById('video-'+localStringFormat+'').appendChild(videoContent);
+              videoContent.id = 'content-reproductor';
+              videoContent.className = 'content-reproductor';
+              document.getElementById('videoInReadWrapper').appendChild(videoContent);
 
           let videoWrapper = document.createElement('div');
-              videoWrapper.id = 'ima-'+localStringFormat+'';
-              videoWrapper.className = 'ima-'+localStringFormat+'';
-
-              document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
-
-              // document.getElementById('content-reproductor').appendChild(videoWrapper);
+              videoWrapper.id = 'ima-sample-videoplayer';
+              videoWrapper.className = 'ima-sample-videoplayer';
+              document.getElementById('content-reproductor').appendChild(videoWrapper);
   
-          const dibujaContVideo_ = await dibujaContVideo(globalVarFormat);
+          const dibujaContVideo_ = await dibujaContVideo();
             if(dibujaContVideo_){
-                initMainSdk(globalVarFormat);
+                initMainSdk();
           }else{console.error("Ha ocurrido un error al crear el contenedor de Video: ",dibujaContVideo_);}
         }
       }
