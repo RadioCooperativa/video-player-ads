@@ -1,7 +1,4 @@
-
-
 function initHomeStiky(flag, url, isMobile, globalVarFormat){
-    console.log("initHomeSticky url: "+url);
 
     urlTagHomeSticky = url;
         if(flag === true){
@@ -12,16 +9,13 @@ function initHomeStiky(flag, url, isMobile, globalVarFormat){
                     dimensiones_1 = 275;
                     dimensiones_2 = 155;
                 }
-
                 ventana.on('scroll', function(){
                     cargarBloqueVideo(globalVarFormat);
                 });
             }
-
         
         let process_scroll_focus = false;
         async function cargarBloqueVideo(globalVarFormat){
-            console.log("initHomeStiky cargarBloqueVideo");
             if(process_scroll_focus === false ){
                 let localStringFormat = globalVarFormat;
                 process_scroll_focus = true;
@@ -47,4 +41,3 @@ function initHomeStiky(flag, url, isMobile, globalVarFormat){
         }
       }
 }
-

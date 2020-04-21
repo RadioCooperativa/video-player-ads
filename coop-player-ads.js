@@ -1,17 +1,13 @@
 let adsManager, adsLoader, adDisplayContainer, videoContent, adsInitialized, autoplayAllowed, autoplayRequiresMuted, contentEndedListener, localStringFormat;
 
 async function initMainSdk(globalVarFormat) {
-  console.log("initMainSdk globalVarFormat: "+globalVarFormat);
 
   localStringFormat = globalVarFormat;
   const resultFormat = await detectFormat(localStringFormat);
 
-  console.log("initMainSdk resultFormat: ",resultFormat);
-
   if(!resultFormat){
     console.error("initMainSdk error detectFormat");
   }else{
-
         dibujaButtonControlsAndClose(resultFormat);
     }
 }
@@ -19,8 +15,6 @@ async function initMainSdk(globalVarFormat) {
 function dibujaButtonControlsAndClose(formatType){
 
   let typeFormat = formatType;
-
-  console.log("initMainSdk dibujaButtonControlsAndCloseInRead typeFormat: ",typeFormat);
   
   videoContent        = document.getElementById('content_video-'+typeFormat);
 
@@ -38,10 +32,6 @@ function dibujaButtonControlsAndClose(formatType){
 
 function detectFormat(formatString){
 
-  /* detectFormat:
-                  1.- inread;
-                  2.- home-stiky;
-                  3.- especial-streaming;*/
   let varResult;
 
   switch (true){
@@ -122,10 +112,8 @@ function autoplayChecksResolved() {
 function setUpIMA() {
 
   createAdDisplayContainer();
-
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   adsLoader.getSettings().setDisableCustomPlaybackForIOS10Plus(true);
-
   adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, onAdsManagerLoaded, false);
   adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError, false);
   contentEndedListener = function() {adsLoader.contentComplete();};
@@ -155,11 +143,7 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
 
     let adsRenderingSettings = new google.ima.AdsRenderingSettings();
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
-
-    console.log("videocontent: ",videoContent);
     adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
-    console.log("adsManager: ",adsManager);
-
     adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,onContentPauseRequested);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,onContentResumeRequested);
@@ -218,50 +202,43 @@ function onAudioRequest(localStringFormat) {
   console.log("onAudioRequest localStringFormat: ",localStringFormat);
 
 
-  switch (true){
-    case(localStringFormat.indexOf('inread') !== -1):
-    let stringFormatInRead = localStringFormat;
-    console.log("onAudioRequest stringFormatInRead: ",stringFormatInRead);
+    switch (true){
+      case(localStringFormat.indexOf('inread') !== -1):
+      let stringFormatInRead = localStringFormat;
 
-    if(adsManager.getVolume !== 0 ){
-      adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='block';
+      if(adsManager.getVolume !== 0 ){
+        adsManager.setVolume(0);
+        document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='none';
+        document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='block';
+      }
+          
+      break;
+      case(localStringFormat.indexOf('home-stiky') !== -1):
+      let stringFormatHomeStiky = localStringFormat;
+      if(adsManager.getVolume !== 0 ){
+        adsManager.setVolume(0);
+        document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='none';
+        document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='block';
+      }
+          
+      break;
+      case(localStringFormat.indexOf('especial-streaming') !== -1):
+      let stringFormatEspecialStreaming = localStringFormat;
+      if(adsManager.getVolume !== 0 ){
+        adsManager.setVolume(0);
+        document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='none';
+        document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='block';
+      }
+      break;
+      default:
     }
-        
-    break;
-    case(localStringFormat.indexOf('home-stiky') !== -1):
-    let stringFormatHomeStiky = localStringFormat;
-    console.log("onAudioRequest stringFormatHomeStiky: ",stringFormatHomeStiky);
-    if(adsManager.getVolume !== 0 ){
-      adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='block';
-    }
-        
-    break;
-    case(localStringFormat.indexOf('especial-streaming') !== -1):
-    let stringFormatEspecialStreaming = localStringFormat;
-    console.log("onAudioRequest stringFormatEspecialStreaming: ",stringFormatEspecialStreaming);
-    if(adsManager.getVolume !== 0 ){
-      adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='block';
-    }
-        
-    break;
-    default:
-}
-
 }
 
 function onMuteRequest(localStringFormat) {
-  console.log("onMuteRequest localStringFormat: ",localStringFormat);
 
   switch (true){
     case(localStringFormat.indexOf('inread') !== -1):
       let stringFormatInRead = localStringFormat;
-      console.log("onMuteRequest stringFormatInRead: ",stringFormatInRead);
       if(adsManager.getVolume() === 0){
         adsManager.setVolume(1);
         document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='block';
@@ -271,17 +248,15 @@ function onMuteRequest(localStringFormat) {
    
     case(localStringFormat.indexOf('home-stiky') !== -1):
       let stringFormatHomeStiky = localStringFormat;
-      console.log("onMuteRequest stringFormatHomeStiky: ",stringFormatHomeStiky);
         if(adsManager.getVolume() === 0){
-        adsManager.setVolume(1);
-        document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='block';
-        document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='none';
+          adsManager.setVolume(1);
+          document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='block';
+          document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='none';
         }        
     break;
    
     case(localStringFormat.indexOf('especial-streaming') !== -1):
       let stringFormatEspecialStreaming = localStringFormat;
-      console.log("onMuteRequest stringFormatEspecialStreaming: ",stringFormatEspecialStreaming);
       if(adsManager.getVolume() === 0){
         adsManager.setVolume(1);
         document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='block';
@@ -289,8 +264,7 @@ function onMuteRequest(localStringFormat) {
       }       
     break;
     default:
-}
-
+  }
 } 
 
 function onCloseRequeset(localStringFormat){

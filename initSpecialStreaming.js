@@ -1,5 +1,4 @@
 function initSpecialStreaming(flag, url, isMobile, globalVarFormat){
-    console.log("initSpecialStreaming url: "+url);
 
     urlTagEspecialStreaming = url;
         if(flag === true){
@@ -20,7 +19,6 @@ function initSpecialStreaming(flag, url, isMobile, globalVarFormat){
                 videoInReadWrapper.id = 'video-'+localStringFormat+'';
                 videoInReadWrapper.className = 'video-'+localStringFormat+'';
                 document.getElementById('ima-player-rudo').appendChild(videoInReadWrapper);
-                // document.body.appendChild(videoInReadWrapper);
 
             let videoContent = document.createElement('div');
                 videoContent.id = 'content-reproductor-'+localStringFormat+'';
@@ -32,15 +30,11 @@ function initSpecialStreaming(flag, url, isMobile, globalVarFormat){
                 videoWrapper.className = 'ima-'+localStringFormat+'';
                 document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
     
-                console.log("llamando a dibujaVideo especial streaming")
             const dibujaContVideo_ = await dibujaContVideo(localStringFormat);
                 if(dibujaContVideo_){
                     initMainSdk(localStringFormat);
-            }else{console.error("Ha ocurrido un error al crear el contenedor de Video: ",dibujaContVideo_);}
-        // }
-        
+            }else{console.error("Ha ocurrido un error al crear el contenedor de Video: ",dibujaContVideo_);}        
     }
-
   }
 }
 
