@@ -1,53 +1,20 @@
-let adsManager, adsLoader, adDisplayContainer, videoContent, adsInitialized, autoplayAllowed, autoplayRequiresMuted, contentEndedListener, localStringFormat;
+let adsManager, adsLoader, adDisplayContainer, videoContent, adsInitialized, autoplayAllowed, autoplayRequiresMuted, contentEndedListener;
 
-async function initMainSdk(globalVarFormat) {
+function initMainSdk() {
 
-  localStringFormat = globalVarFormat;
-  const resultFormat = await detectFormat(localStringFormat);
+  videoContent        = document.getElementById('content_video');
+  videoContent_ima    = document.getElementById('ima-sample-videoplayer');
 
+  buttonAudio         = document.getElementById('audioButton');
+  buttonMute          = document.getElementById('muteButton');
+  buttonClose         = document.getElementById("contentCloseImg")
 
-  if(!resultFormat){
-    console.error("initMainSdk error detectFormat");
-  }else{
+  buttonAudio.addEventListener('click',() => {onAudioRequest();});
+  buttonMute.addEventListener('click', () => {onMuteRequest();});
+  buttonClose.addEventListener('click',() => {onCloseRequeset();});
 
-        dibujaButtonControlsAndClose(resultFormat);
-    }
-}
-
-function dibujaButtonControlsAndClose(formatType){
-
-  let typeFormat = formatType;
-
-  
-  videoContent        = document.getElementById('content_video-'+typeFormat);
-
-  buttonAudio         = document.getElementById('audioButton-'+typeFormat+'');
-  buttonMute          = document.getElementById('muteButton-'+typeFormat+'');
-  buttonClose         = document.getElementById('contentCloseImg-'+typeFormat+'');
-
-  buttonAudio.addEventListener('click',() => {onAudioRequest(typeFormat);});
-  buttonMute.addEventListener('click', () => {onMuteRequest(typeFormat);});
-  buttonClose.addEventListener('click',() => {onCloseRequeset(typeFormat);});
-
-  setUpIMA();
-  checkAutoplaySupport();
-}
-
-function detectFormat(formatString){
-
-  let varResult;
-
-  switch (true){
-      case(formatString.indexOf('inread') !== -1):
-        varResult = 'inread';
-        return varResult;
-      case(formatString.indexOf('home-stiky') !== -1):
-        varResult = 'home-stiky';
-        return varResult;
-      case(formatString.indexOf('especial-streaming') !== -1):
-        varResult = 'especial-streaming';
-        return varResult;
-  }
+setUpIMA();
+checkAutoplaySupport();
 }
 
 function checkAutoplaySupport() {
@@ -90,20 +57,7 @@ function onMutedAutoplayFail() {
 
 function autoplayChecksResolved() {
     var adsRequest = new google.ima.AdsRequest();
-
-    switch (true){
-      case(localStringFormat.indexOf('inread') !== -1):
-          adsRequest.adTagUrl = urlTagInRead;
-      break;
-      case(localStringFormat.indexOf('home-stiky') !== -1):
-          adsRequest.adTagUrl = urlTagHomeSticky;
-      break;
-      case(localStringFormat.indexOf('especial-streaming') !== -1):
-          adsRequest.adTagUrl = urlTagEspecialStreaming;
-      break;
-      default:
- }
-    
+    adsRequest.adTagUrl = urlTag;
     adsRequest.setAdWillAutoPlay(autoplayAllowed);
     adsRequest.setAdWillPlayMuted(autoplayRequiresMuted);
     adsLoader.requestAds(adsRequest);
@@ -124,7 +78,7 @@ function setUpIMA() {
 
 function createAdDisplayContainer() {
 
-  adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('ima-'+localStringFormat+''), videoContent);
+  adDisplayContainer = new google.ima.AdDisplayContainer(document.getElementById('ima-sample-videoplayer'), videoContent);
 }
 
 function playAds() {
@@ -147,7 +101,6 @@ function onAdsManagerLoaded(adsManagerLoadedEvent) {
     adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
 
     adsManager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
-
     adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, onAdError);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,onContentPauseRequested);
     adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,onContentResumeRequested);
@@ -172,8 +125,6 @@ function onAdEvent(adEvent) {
 
   var ad = adEvent.getAd();
 
-  let varCompruebaElement = document.getElementById('ima-player-rudo');
-
     switch (adEvent.type) {
         case google.ima.AdEvent.Type.LOADED:
             console.info("Loaded");
@@ -182,18 +133,16 @@ function onAdEvent(adEvent) {
             }
         break;
         case google.ima.AdEvent.Type.STARTED:
-          console.info("Started");
 
-                adsManager.getVolume() === 0 ? document.getElementById('muteButton-'+localStringFormat+'').style.display ='block': document.getElementById('audioButton-'+localStringFormat+'').style.display ='block';
-                document.getElementById('video-'+localStringFormat+'').style.display                            ='table';
-                document.getElementById('ima-'+localStringFormat+'').style.display                              ='table';
-                document.getElementById('contControlsVideo-'+localStringFormat+'').style.display                ='block';
-                document.getElementById('contentCloseImg-'+localStringFormat+'').style.display                  ='block';    
+                adsManager.getVolume() === 0 ? document.getElementById('muteButton').style.display ='block': document.getElementById('audioButton').style.display ='block';
+                document.getElementById('videoInReadWrapper').style.display           ='table';
+                document.getElementById('ima-sample-videoplayer').style.display       ='table';
+                document.getElementById('contControls').style.display                 ='block';
+                document.getElementById('contentClose').style.display                 ='block';
         break;
         case google.ima.AdEvent.Type.COMPLETE:
                 console.info("Complete");
-                document.getElementById('video-'+localStringFormat+'').style.display           ='none';
-                varCompruebaElement ? document.getElementById('ima-player-rudo').style.display ='none':null;
+                document.getElementById("videoInReadWrapper").style.display           ='none';
         break;
   }
 }
@@ -202,96 +151,26 @@ function onAdError(adErrorEvent) {
   if(adsManager){adsManager.destroy();}
 }
 
-function onAudioRequest(localStringFormat) {
-
-
-  switch (true){
-    case(localStringFormat.indexOf('inread') !== -1):
-    let stringFormatInRead = localStringFormat;
-
+function onAudioRequest() {
     if(adsManager.getVolume !== 0 ){
       adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='block';
+      document.getElementById('audioButton').style.display ='none';
+      document.getElementById('muteButton').style.display ='block';
     }
-        
-    break;
-    case(localStringFormat.indexOf('home-stiky') !== -1):
-    let stringFormatHomeStiky = localStringFormat;
-    if(adsManager.getVolume !== 0 ){
-      adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='block';
-    }
-        
-    break;
-    case(localStringFormat.indexOf('especial-streaming') !== -1):
-    let stringFormatEspecialStreaming = localStringFormat;
-    if(adsManager.getVolume !== 0 ){
-      adsManager.setVolume(0);
-      document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='none';
-      document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='block';
-    }
-        
-    break;
-    default:
 }
 
-}
-
-function onMuteRequest(localStringFormat) {
-
-  switch (true){
-    case(localStringFormat.indexOf('inread') !== -1):
-      let stringFormatInRead = localStringFormat;
-      if(adsManager.getVolume() === 0){
-        adsManager.setVolume(1);
-        document.getElementById('audioButton-'+stringFormatInRead+'').style.display ='block';
-        document.getElementById('muteButton-'+stringFormatInRead+'').style.display ='none';
-      }     
-    break;
-   
-    case(localStringFormat.indexOf('home-stiky') !== -1):
-      let stringFormatHomeStiky = localStringFormat;
+function onMuteRequest() {
+      
         if(adsManager.getVolume() === 0){
-        adsManager.setVolume(1);
-        document.getElementById('audioButton-'+stringFormatHomeStiky+'').style.display ='block';
-        document.getElementById('muteButton-'+stringFormatHomeStiky+'').style.display ='none';
-        }        
-    break;
-   
-    case(localStringFormat.indexOf('especial-streaming') !== -1):
-      let stringFormatEspecialStreaming = localStringFormat;
-      if(adsManager.getVolume() === 0){
-        adsManager.setVolume(1);
-        document.getElementById('audioButton-'+stringFormatEspecialStreaming+'').style.display ='block';
-        document.getElementById('muteButton-'+stringFormatEspecialStreaming+'').style.display ='none';
-      }       
-    break;
-    default:
-}
-
+          adsManager.setVolume(1);
+          document.getElementById('audioButton').style.display ='block';
+          document.getElementById('muteButton').style.display ='none';
+      }
 } 
 
-function onCloseRequeset(localStringFormat){
-
-  switch (true){
-    case(localStringFormat.indexOf('inread') !== -1):
-      adsManager.destroy();
-      document.getElementById('video-'+localStringFormat+'').style.display='none';   
-    break;
-    case(localStringFormat.indexOf('home-stiky') !== -1):
-      adsManager.destroy();
-      document.getElementById('video-'+localStringFormat+'').style.display='none';
-    break;
-    case(localStringFormat.indexOf('especial-streaming') !== -1):
-      adsManager.destroy();
-      document.getElementById('video-'+localStringFormat+'').style.display='none';
-      document.getElementById('ima-player-rudo').style.display='none';  
-    break;
-    default:
-}
-
+function onCloseRequeset(){
+    adsManager.destroy();
+    document.getElementById("videoInReadWrapper").style.display='none';
 }
 
 function onContentPauseRequested() {
