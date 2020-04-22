@@ -11,47 +11,47 @@ function dibujaContVideo(globalVarFormat){
     try {
       let localStringFormat = globalVarFormat;
 
-            let obj = document.getElementById('ima-'+localStringFormat+'');
-  
-            if(detectIos() === 1){
-              htmlObject = '<video id="content_video-'+localStringFormat+'" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
-              obj.innerHTML = htmlObject;
-            }else{
-              htmlObject = '<video id="content_video-'+localStringFormat+'" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
-              obj.innerHTML = htmlObject;              
-            }
-            console.log("dibujaContVideo localStringFormat: ",localStringFormat);
-            closeWrapper = document.createElement('div');
-            closeWrapper.id ='closeWrapper-'+localStringFormat+'';
-            closeWrapper.className = 'closeWrapper-'+localStringFormat+'';
-            document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(closeWrapper);
+           let obj = document.getElementById('ima-'+localStringFormat+'');
 
-            contentClose = document.createElement('div');
-            contentClose.id = 'contentClose-'+localStringFormat+'';
-            contentClose.className = 'contentClose-'+localStringFormat+'';
-            document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentClose);
+           if(detectIos() === 1){
+             htmlObject = '<video id="content_video-'+localStringFormat+'" playsinline muted class="content_video"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+             obj.innerHTML = htmlObject;
+           }else{
+             htmlObject = '<video id="content_video-'+localStringFormat+'" style="display: none !important"> <source src='+urlVideoVacio+' type='+typeVideoVacio+'> </video>';
+             obj.innerHTML = htmlObject;              
+           }
+           
+           closeWrapper = document.createElement('div');
+           closeWrapper.id ='closeWrapper-'+localStringFormat+'';
+           closeWrapper.className = 'closeWrapper-'+localStringFormat+'';
+           document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(closeWrapper);
 
-            contentCloseImg = document.createElement('div');
-            contentCloseImg.id = 'contentCloseImg-'+localStringFormat+'';
-            contentCloseImg.className = 'contentCloseImg-'+localStringFormat+'';
-            document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentCloseImg);
-            
-            contControls        = document.createElement('div');
-            contControls.id     = 'contControlsVideo-'+localStringFormat+'';
-            contControls.setAttribute('class', 'contControlsVideo-'+localStringFormat+'');
-            document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(contControls);
+           contentClose = document.createElement('div');
+           contentClose.id = 'contentClose-'+localStringFormat+'';
+           contentClose.className = 'contentClose-'+localStringFormat+'';
+           document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentClose);
 
-            buttonAudio         = document.createElement('div');
-            buttonAudio.id      = 'audioButton-'+localStringFormat+'';
-            buttonAudio.setAttribute('class', 'buttonAudio-'+localStringFormat+'');
-            document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonAudio);
+           contentCloseImg = document.createElement('div');
+           contentCloseImg.id = 'contentCloseImg-'+localStringFormat+'';
+           contentCloseImg.className = 'contentCloseImg-'+localStringFormat+'';
+           document.getElementById('closeWrapper-'+localStringFormat+'').appendChild(contentCloseImg);
+           
+           contControls        = document.createElement('div');
+           contControls.id     = 'contControlsVideo-'+localStringFormat+'';
+           contControls.setAttribute('class', 'contControlsVideo-'+localStringFormat+'');
+           document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(contControls);
 
-            buttonMute          = document.createElement('div');
-            buttonMute.id       = 'muteButton-'+localStringFormat+''
-            buttonMute.setAttribute('class', 'buttonMute-'+localStringFormat+'');
-            document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonMute);
+           buttonAudio         = document.createElement('div');
+           buttonAudio.id      = 'audioButton-'+localStringFormat+'';
+           buttonAudio.setAttribute('class', 'buttonAudio-'+localStringFormat+'');
+           document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonAudio);
 
-            return true;
+           buttonMute          = document.createElement('div');
+           buttonMute.id       = 'muteButton-'+localStringFormat+''
+           buttonMute.setAttribute('class', 'buttonMute-'+localStringFormat+'');
+           document.getElementById('contControlsVideo-'+localStringFormat+'').appendChild(buttonMute);
+           
+           return true;
 
         } catch (adError) {
            return adError;
