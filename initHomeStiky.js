@@ -45,4 +45,3 @@ function initHomeStiky(flag, url, isMobile, globalVarFormat){
         }
       }
 }
-
