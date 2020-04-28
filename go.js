@@ -115,6 +115,7 @@ function callViews (url,isMobile){
     switch (true){
         case(url.indexOf('inread') !== -1):
             globalVarFormat = 'inread';
+            console.log("go callViews inread");
             initInread(true,url,isMobile,globalVarFormat);
         break;
         case(url.indexOf('home_stiky') !== -1):

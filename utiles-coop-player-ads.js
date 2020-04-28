@@ -7,6 +7,7 @@ let contentCloseImg     = '';
 
 
 function dibujaContVideo(globalVarFormat){
+  console.log("dibujaContVideo globalVarFormat: ",globalVarFormat);
     
     try {
       let localStringFormat = globalVarFormat;
@@ -82,7 +83,7 @@ function detectmob() {
      }
 }
 
-$.fn.isOnScreen = function(){
+$.fn.isOnScreen_ = function(){
     
     var win = $(window);
   

@@ -10,6 +10,9 @@ let altura_3 = 0;
 
 
 function initInread(flag, url, isMobile, globalVarFormat){
+  console.log("initInread globalVarFormat: ",globalVarFormat);
+  console.log("initInread isMobile: ",isMobile);
+
  
   urlTagInRead = url;
   if(flag === true){
@@ -45,6 +48,7 @@ function initInread(flag, url, isMobile, globalVarFormat){
 
           if(style !== "max-height: 300px;"){
           
+            console.log("llamando cargarBloqueVideo globalVarFormat: ",globalVarFormat);
             cargarBloqueVideo(globalVarFormat);
         
               let contenedorVideo     = $('#content-reproductor-inread');
@@ -74,10 +78,13 @@ function initInread(flag, url, isMobile, globalVarFormat){
               }
     });
 
-    let process_scroll_focus = false;
+    let process_scroll_focus_ = false;
     async function cargarBloqueVideo(globalVarFormat){
-      if($('.cuerpo-ad').isOnScreen() === true && process_scroll_focus === false ){
-          process_scroll_focus = true;
+
+      console.log("isOnScreen: ",$('.cuerpo-ad').isOnScreen_());
+      if($('.cuerpo-ad').isOnScreen_() === true && process_scroll_focus_ === false ){
+          process_scroll_focus_ = true;
+          console.log("cargarBloqueVideo cantidadParrafos: ",cantidadParrafos);
         if (cantidadParrafos >= 3){
           let localStringFormat = globalVarFormat;
           
@@ -98,6 +105,7 @@ function initInread(flag, url, isMobile, globalVarFormat){
               document.getElementById('content-reproductor-'+localStringFormat+'').appendChild(videoWrapper);
   
           const dibujaContVideo_ = await dibujaContVideo(globalVarFormat);
+          console.log("cargarBloqueVideo dibujaContVideo_: ",dibujaContVideo_);
             if(dibujaContVideo_){
                 initMainSdk(globalVarFormat);
           }else{console.error("Ha ocurrido un error al crear el contenedor de Video: ",dibujaContVideo_);}

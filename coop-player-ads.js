@@ -2,6 +2,7 @@ let adsManager, adsLoader, adDisplayContainer, videoContent, adsInitialized, aut
 
 async function initMainSdk(globalVarFormat) {
 
+  console.log("initMainSdk globalVarFormat: ",globalVarFormat);
   localStringFormat = globalVarFormat;
   const resultFormat = await detectFormat(localStringFormat);
 
